@@ -39,4 +39,21 @@ class TaskController extends Controller
 
         return 'Deletado com sucesso';
     }
+    public function markAsDone(string $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->is_completed = true;
+        $task->update();
+
+        return new TaskResource($task);
+    }
+
+    public function markAsUndone(string $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->is_completed = false;
+        $task->update();
+
+        return new TaskResource($task);
+    }
 }
